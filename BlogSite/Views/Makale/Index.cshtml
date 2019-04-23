@@ -1,0 +1,85 @@
+﻿@model IEnumerable<BlogSite.Models.Makale>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@helper truncate(string input, int length)
+{
+    if (input.Length <= length)
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, length)<text>...</text>
+    }
+}
+
+<h2>Tüm makaleler</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.TextBox("AramaYap")
+    <input  type="submit" class="btn btn-primary" value="ara"/>
+    
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Kullanici.KullaniciAdi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Baslik)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.icerik)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KategoriID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tarih)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kullanici.KullaniciAdi)
+            </td>
+            <td>
+                @truncate(item.Baslik, 15)
+            </td>
+            <td>
+                @truncate(item.icerik, 40)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KategoriID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tarih)
+            </td>
+            <td>
+                @if (item.Kullanici.KullaniciAdi == Session["username"].ToString())
+                {
+                    <p>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </p>
+                }
+
+                @Html.ActionLink("incele", "Details", new { id = item.ID }) |
+
+            </td>
+        </tr>
+    }
+
+</table>

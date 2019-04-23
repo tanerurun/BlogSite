@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar">login</span>
+                    <span class="icon-bar">Basket</span>
+                    <span class="icon-bar"></span>
+                </button>
+                <button style="text-align:right">button</button>
+
+                @if (Session["username"] == null)
+                {
+                    @Html.ActionLink("Taner Blog", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+                }
+                else
+                {
+                    @Html.ActionLink("Taner Blog","Index","Kullanici",new { area = "" }, new { @class="navbar-brand"})
+                    @Html.ActionLink("Makaleler", "Index", "Makale", new { area = "" }, new { @class="navbar-brand"})
+
+                }
+            </div>
+            <div class="navbar-collapse collapse navbar-right">
+                @if (Session["username"] == null)
+                {
+                    @Html.ActionLink("Kayıt Ol", "Create", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Giriş Yap", "Login", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                }
+                else
+                {
+                    @Html.ActionLink(Session["username"].ToString(), "Profil", "Kullanici", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Çıkış Yap", "Logout", "Kullanici", new { area = "" }, new { @class = "navbar-brand" })
+
+                }
+                @*<ul class="nav navbar-nav">
+            <li style="text-align:right"> <b style="text-align:center;color:aliceblue; text-align:right">test</b></li>
+        </ul>*@
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Blog</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("scripts",required:false) @*scripts dosayasına izin veriyoruz details.cshtml altında oluşturuyoruz*@
+</body>
+</html>

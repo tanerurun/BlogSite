@@ -1,0 +1,62 @@
+﻿@model BlogSite.Models.Kullanici
+
+@{
+    ViewBag.Title = "Profil";
+}
+
+<h2>Profil :@Html.DisplayFor(model=>model.Yetkilendirme.YetkiAdi)</h2>
+
+<div>
+    <h4 class="text-center text-info">Kullanici profili : @Session["username"].ToString()</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Yetkilendirme.YetkiAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Yetkilendirme.YetkiAdi)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sifre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sifre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Soyisim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Soyisim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index","Home")
+</p>

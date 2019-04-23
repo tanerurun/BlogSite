@@ -1,0 +1,68 @@
+﻿@model IEnumerable<BlogSite.Models.Makale>
+
+@{
+    ViewBag.Title = "";
+}
+
+@helper Truncate(string input,int length)
+    {
+if(input.Length<=length)
+{
+          @input
+}
+else
+{
+        @input.Substring(0,length)<text>...</text>
+}
+    }
+<h2> Makale </h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Kullanici.KullaniciAdi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Baslik)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.icerik)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KategoriID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tarih)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kullanici.KullaniciAdi)
+        </td>
+        <td>
+          @Truncate(item.Baslik,25)
+        </td>
+        <td>
+          @Truncate(item.icerik,30)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KategoriID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tarih)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

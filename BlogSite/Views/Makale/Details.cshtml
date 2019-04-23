@@ -1,0 +1,131 @@
+﻿@model BlogSite.ViewModels.SonAtilanMakaleViewModel
+
+@{
+    ViewBag.Title = "Details";
+     Layout= "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Makalem.Baslik</h2>
+
+<div>
+    <h4>@Model.Makalem.Kullanici.KullaniciAdi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Makalem.Kullanici.KullaniciAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Makalem.Kullanici.KullaniciAdi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Makalem.Baslik)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Makalem.Baslik)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Makalem.icerik)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Makalem.icerik)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Makalem.KategoriID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Makalem.KategoriID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Makalem.Tarih)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Makalem.Tarih)
+        </dd>
+
+    </dl>
+</div>
+@if (Model.Makalem.Kullanici.KullaniciAdi == Session["username"].ToString())
+{
+    <h5>Etiketler</h5>
+    foreach(var i  in Model.Makalem.Etikets.ToList())
+    {
+        <p>@i</p>
+    }
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Makalem.ID }) <p>|</p>
+    @Html.ActionLink("Etiket Ekle", "Edit", new { id = Model.Makalem.ID })
+}
+<p>
+
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+
+
+<p>yorum kısmı buraya yapacağız</p>
+<div>
+    <textarea typeof="text" id="yorum">
+       
+</textarea>
+    <br />
+    <button type="button" class="btn btn-primary yuvarlak" id="yorumyap"><b>Yorum Yap</b></button>
+</div>
+<hr />
+
+@Html.Partial("YorumListele",Model.Makalem.Yorums.ToList())
+<div class="container">
+    @foreach(var item in Model.Makaleler)
+    {
+          <div class="col-md-2 text-danger">
+              <p>@item.Baslik</p>
+              <p>@item.KategoriID</p>
+              <p>@item.Tarih</p>
+              <p>@item.icerik</p>
+          </div>
+    }
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#yorumyap").click(function () {
+                //alert("yorum yapıldı.");
+                var yorumumuz = $("#yorum").val();/*textarae alanına girilen degeri al bana ver*/
+                $.ajax({
+                    url: '/Makale/YorumYap/',
+                    data: { yorum: yorumumuz, Makaleid:@Model.Makalem.ID },
+                    type: 'Post',
+                    datatype: 'json',
+                    success:function(data) {
+                        alert("başarlı");
+                    }
+                });
+            });
+        });
+    </script>
+
+    }
+
+@*--bunu kullanmak icin layoutta izin almak lazım*@
+
+
+    <style>
+        .yuvarlak {
+            border: 2px solid green;
+            background-color: orange;
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            -moz-border-radius: 50px;
+            -webkit-border-radius: 50px;
+        }
+    </style>

@@ -1,0 +1,14 @@
+﻿@model BlogSite.Models.Kullanici
+@{
+    ViewBag.Title = "Index";
+    //Layout= "~/View/Shared/_Layout.cshtml";
+}
+
+@*<h2>Hoş geldiniz @Model.isim</h2>*@
+@*<p>yazdığınız makale sayısı :@Model.Makales.Count</p>*@
+<li>
+@Html.ActionLink("Makale Yaz","Create","Makale")</li>
+<li>
+@Html.ActionLink("Makalerimi listele","KisiMakaleListele","Makale" )
+
+    </li>
